@@ -14,14 +14,14 @@ public class GuiHandler implements IGuiHandler{
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z){
         if(ID == 0)
-            return new GUIOrEOre(player.inventory, world, x, y, z, (TileEntityOrEOre)world.getTileEntity(x, y, z));
+            return new GUIOrEOre(player.inventory, (TileEntityOrEOre)world.getTileEntity(x, y, z));
         return null;
     }
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
         if(ID == 0)
-            return new ContainerOrEOre(player.inventory, world, x, y, z, (TileEntityOrEOre)world.getTileEntity(x, y, z));
+            return new ContainerOrEOre(player.inventory, (TileEntityOrEOre)world.getTileEntity(x, y, z));
         return null;
     }
 }

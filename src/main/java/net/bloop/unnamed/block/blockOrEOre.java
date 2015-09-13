@@ -3,7 +3,7 @@ package net.bloop.unnamed.block;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
-import net.bloop.unnamed.UnnamedMod;
+import net.bloop.unnamed.OrEOreMod;
 import net.bloop.unnamed.tile.TileEntityOrEOre;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -35,7 +35,7 @@ public class blockOrEOre extends BlockContainer {
     @Override
     public void registerBlockIcons (IIconRegister iconRegister)
     {
-        sides = iconRegister.registerIcon("unnamed:oreore");
+        sides = iconRegister.registerIcon("oreore:oreore");
     }
 
     @Override
@@ -54,7 +54,7 @@ public class blockOrEOre extends BlockContainer {
         }
         else
         {
-            player.openGui(UnnamedMod.instance, 0, world, x, y, z);
+            player.openGui(OrEOreMod.instance, 0, world, x, y, z);
             return true;
         }
     }

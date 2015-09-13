@@ -12,8 +12,8 @@ public class BlockRegistry {
     public static Block blockOrEOre;
 
     public static void registerThings(){
-        blockOrEOre = GameRegistry.registerBlock(new blockOrEOre(), "ore_ore");
+        blockOrEOre = GameRegistry.registerBlock(new blockOrEOre(), "oreore");
 
-        GameRegistry.registerTileEntity(TileEntityOrEOre.class, "OrEOre");
+        GameRegistry.registerTileEntity(TileEntityOrEOre.class, "oreore");
     }
 }
