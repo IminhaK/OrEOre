@@ -6,17 +6,12 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import fox.spiteful.avaritia.items.ItemFracturedOre;
-import fox.spiteful.avaritia.items.LudicrousItems;
 import net.bloop.unnamed.block.BlockRegistry;
 import net.bloop.unnamed.craft.CraftingRegistry;
-import net.bloop.unnamed.craft.OrEOreManager;
 import net.bloop.unnamed.gui.GuiHandler;
 import net.bloop.unnamed.item.ItemRegistry;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 @Mod(modid = "oreore", version = "0.1")
 public class OrEOreMod

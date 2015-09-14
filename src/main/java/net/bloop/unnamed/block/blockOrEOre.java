@@ -35,7 +35,7 @@ public class blockOrEOre extends BlockContainer {
     @Override
     public void registerBlockIcons (IIconRegister iconRegister)
     {
-        sides = iconRegister.registerIcon("oreore:oreore");
+        sides = iconRegister.registerIcon("oreore:oreoreshiny");
     }
 
     @Override

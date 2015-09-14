@@ -1,14 +1,14 @@
 [
 {
   "modid": "oreore",
-  "name": "The OrEOre Mod",
-  "description": "All the ores!",
+  "name": "OrEOre",
+  "description": "Addon for Avaritia. Adds a block that octuples ores.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["Bloop"],
-  "credits": "mrammy, SpitefulFox, TTFTCUTS, Vazkii",
+  "credits": "mrammy, SpitefulFox, TTFTCUTS, Vazkii, Othlon",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
