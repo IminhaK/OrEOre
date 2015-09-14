@@ -6,6 +6,7 @@ import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.crafting.ExtremeShapedRecipe;
+import fox.spiteful.avaritia.items.ItemFracturedOre;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.bloop.unnamed.block.BlockRegistry;
 import net.bloop.unnamed.item.ItemRegistry;
@@ -54,5 +55,6 @@ public class CraftingRegistry {
                new ItemStack(Blocks.lapis_ore, 1),
                new ItemStack(Blocks.quartz_ore, 1),
                new ItemStack(Blocks.redstone_ore, 1));
+       OrEOreManager.addRecipe(((ItemFracturedOre)(LudicrousItems.fractured_ore)).getStackForOre(new ItemStack(Blocks.iron_ore), 1), 8, new ItemStack(Blocks.iron_ore));
    }
 }

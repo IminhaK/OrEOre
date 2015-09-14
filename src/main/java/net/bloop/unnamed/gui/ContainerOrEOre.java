@@ -1,5 +1,6 @@
 package net.bloop.unnamed.gui;
 
+import net.bloop.unnamed.craft.OrEOreManager;
 import net.bloop.unnamed.tile.TileEntityOrEOre;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -24,7 +25,7 @@ public class ContainerOrEOre extends Container {
     {
         this.oreore = machine;
         this.addSlotToContainer(new Slot(oreore, 0, 56, 27));
-        this.addSlotToContainer(new SlotOrEOre(player.player, machine, 1, 116, 27));
+        this.addSlotToContainer(new SlotFurnace(player.player, machine, 1, 116, 27));
         //this.addSlotToContainer(new SlotFurnace(player.player, machine, 1, 116, 27));
         int i;
 
@@ -76,7 +77,7 @@ public class ContainerOrEOre extends Container {
             }
             else if (slotNumber != 0)
             {
-                if (itemstack1 != null)
+                if (OrEOreManager.getOutput(itemstack1) != null)
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
                     {
