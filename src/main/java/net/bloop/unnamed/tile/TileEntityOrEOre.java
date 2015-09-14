@@ -1,5 +1,6 @@
 package net.bloop.unnamed.tile;
 
+import net.bloop.unnamed.craft.OrEOreManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -11,94 +12,191 @@ import net.minecraft.nbt.NBTTagCompound;
  */
 public class TileEntityOrEOre extends TileBase implements IInventory, ISidedInventory {
 
-    private ItemStack result;
-    private ItemStack[] matrix = new ItemStack[81];
+    private ItemStack input, processing, output;
+    private int facing = 2;
+    private int progress = 0;
+    private int target = 0;
+    private String ingredient;
+
+    private int packetCount;
+    private boolean packet;
+
+    private static final int[] top = new int[]{0};
+    private static final int[] sides = new int[]{1};
 
     @Override
-    public boolean canUpdate()
-    {
-        return false;
+    public void updateEntity(){
+        if(packetCount > 0)
+            packetCount--;
+        if(input != null && (processing == null || progress < target) ){
+            if(OrEOreManager.getOutput(input) != null && (output == null || OrEOreManager.getOutput(input).isItemEqual(output))) {
+                if (processing == null) {
+                    processing = OrEOreManager.getOutput(input);
+                    target = OrEOreManager.getCost(input);
+                    ingredient = OrEOreManager.getName(input);
+                }
+                if (OrEOreManager.getOutput(input).isItemEqual(processing)) {
+                    int needed = target - progress;
+                    if(needed >= input.stackSize) {
+                        progress += input.stackSize;
+                        input = null;
+                    }
+                    else {
+                        progress = target;
+                        input.stackSize -= needed;
+                    }
+                }
+                markDirty();
+                packet = true;
+            }
+        }
+        if (progress >= target && processing != null && (output == null || (output.isItemEqual(processing) && output.stackSize < output.getMaxStackSize()))) {
+            if(output == null)
+                output = processing.copy();
+            else if(output.isItemEqual(processing))
+                output.stackSize++;
+
+            progress -= target;
+            if(progress == 0) {
+                processing = null;
+                ingredient = null;
+            }
+            markDirty();
+            packet = true;
+        }
+        if(packet && packetCount <= 0) {
+            VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+            packetCount = 10;
+            packet = false;
+        }
+    }
+
+    public int getFacing(){
+        return facing;
+    }
+
+    public void setFacing(int dir){
+        facing = dir;
+    }
+
+    public int getProgress(){
+        return progress;
+    }
+
+    public int getTarget(){
+        return target;
+    }
+
+    public String getIngredient(){
+        return ingredient;
     }
 
     @Override
     public void readCustomNBT(NBTTagCompound tag)
     {
-        this.result = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Result"));
-        for(int x = 0;x < matrix.length;x++){
-            matrix[x] = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Craft" + x));
+        this.input = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Input"));
+        this.processing = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Processing"));
+        this.output = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Output"));
+        if(processing != null) {
+            this.target = OrEOreManager.getPrice(processing);
+            if(target != 0) {
+                this.progress = tag.getInteger("Progress");
+                if (tag.hasKey("Ingredient"))
+                    this.ingredient = tag.getString("Ingredient");
+            }
+            else
+                processing = null;
         }
+        else {
+            progress = 0;
+            target = 0;
+            ingredient = null;
+        }
+        this.facing = tag.getShort("Facing");
     }
 
     @Override
     public void writeCustomNBT(NBTTagCompound tag)
     {
-        if(result != null) {
+        tag.setShort("Facing", (short) this.facing);
+        if(input != null) {
             NBTTagCompound produce = new NBTTagCompound();
-            result.writeToNBT(produce);
-            tag.setTag("Result", produce);
+            input.writeToNBT(produce);
+            tag.setTag("Input", produce);
         }
         else
-            tag.removeTag("Result");
-
-        for(int x = 0;x < matrix.length;x++){
-            if(matrix[x] != null){
-                NBTTagCompound craft = new NBTTagCompound();
-                matrix[x].writeToNBT(craft);
-                tag.setTag("Craft" + x, craft);
-            }
+            tag.removeTag("Input");
+        if(processing != null) {
+            NBTTagCompound produce = new NBTTagCompound();
+            processing.writeToNBT(produce);
+            tag.setTag("Processing", produce);
+            tag.setInteger("Progress", this.progress);
+            if(ingredient != null)
+                tag.setString("Ingredient", this.ingredient);
             else
-                tag.removeTag("Craft" + x);
+                tag.removeTag("Ingredient");
         }
+        else {
+            tag.removeTag("Processing");
+            tag.removeTag("Progress");
+            tag.removeTag("Target");
+            tag.removeTag("Ingredient");
+        }
+        if(output != null) {
+            NBTTagCompound produce = new NBTTagCompound();
+            output.writeToNBT(produce);
+            tag.setTag("Output", produce);
+        }
+        else
+            tag.removeTag("Output");
     }
 
     @Override
     public int getSizeInventory()
     {
-        return 82;
+        return 2;
     }
 
     @Override
     public ItemStack getStackInSlot(int slot){
         if(slot == 0)
-            return result;
-        else if(slot <= matrix.length)
-            return matrix[slot - 1];
+            return input;
         else
-            return null;
+            return output;
     }
 
     @Override
     public ItemStack decrStackSize(int slot, int decrement){
-
-        if(slot == 0){
-            if(result != null){
-                for(int x = 1;x <= matrix.length;x++){
-                    decrStackSize(x, 1);
-                }
-                if(result.stackSize <= decrement) {
-                    ItemStack craft = result;
-                    result = null;
-                    return craft;
-                }
-                ItemStack split = result.splitStack(decrement);
-                if(result.stackSize <= 0)
-                    result = null;
-                return split;
-            }
-            else
+        if(slot == 0) {
+            if (input == null)
                 return null;
-        }
-        else if(slot <= matrix.length){
-            if(matrix[slot - 1] != null){
-                if(matrix[slot - 1].stackSize <= decrement){
-                    ItemStack ingredient = matrix[slot - 1];
-                    matrix[slot - 1] = null;
-                    return ingredient;
+            else {
+                if (decrement < input.stackSize) {
+                    ItemStack take = input.splitStack(decrement);
+                    if (input.stackSize <= 0)
+                        input = null;
+                    return take;
+                } else {
+                    ItemStack take = input;
+                    input = null;
+                    return take;
                 }
-                ItemStack split = matrix[slot - 1].splitStack(decrement);
-                if(matrix[slot - 1].stackSize <= 0)
-                    matrix[slot - 1] = null;
-                return split;
+            }
+        }
+        else if (slot == 1){
+            if (output == null)
+                return null;
+            else {
+                if (decrement < output.stackSize) {
+                    ItemStack take = output.splitStack(decrement);
+                    if (output.stackSize <= 0)
+                        output = null;
+                    return take;
+                } else {
+                    ItemStack take = output;
+                    output = null;
+                    return take;
+                }
             }
         }
         return null;
@@ -117,7 +215,16 @@ public class TileEntityOrEOre extends TileBase implements IInventory, ISidedInve
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack){
-
+        if(stack == null)
+            return false;
+        if(slot == 0){
+            if(processing == null)
+                return true;
+            if(OrEOreManager.getOutput(stack) == null)
+                return false;
+            if(OrEOreManager.getOutput(stack).isItemEqual(processing))
+                return true;
+        }
         return false;
     }
 
@@ -128,12 +235,10 @@ public class TileEntityOrEOre extends TileBase implements IInventory, ISidedInve
 
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack){
-        if(slot == 0){
-            result = stack;
-        }
-        else if(slot <= matrix.length){
-            matrix[slot - 1] = stack;
-        }
+        if(slot == 0)
+            input = stack;
+        else if(slot == 1)
+            output = stack;
     }
 
     @Override
@@ -147,7 +252,7 @@ public class TileEntityOrEOre extends TileBase implements IInventory, ISidedInve
     @Override
     public String getInventoryName()
     {
-        return  "container.dire";
+        return  "container.oreore";
     }
 
     /**
@@ -159,15 +264,21 @@ public class TileEntityOrEOre extends TileBase implements IInventory, ISidedInve
         return false;
     }
 
+    @Override
     public int[] getAccessibleSlotsFromSide(int side){
-        return new int[]{};
+        if(side == 1)
+            return top;
+        else
+            return sides;
     }
 
-    public boolean canInsertItem(int slot, ItemStack item, int side){
-        return false;
+    public boolean canInsertItem(int slot, ItemStack stack, int side){
+        return isItemValidForSlot(slot, stack);
     }
 
-    public boolean canExtractItem(int slot, ItemStack item, int side){
+    public boolean canExtractItem(int slot, ItemStack stack, int side){
+        if(slot == 1 && side != 1)
+            return true;
         return false;
     }
 

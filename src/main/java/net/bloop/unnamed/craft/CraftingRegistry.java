@@ -55,6 +55,7 @@ public class CraftingRegistry {
                new ItemStack(Blocks.lapis_ore, 1),
                new ItemStack(Blocks.quartz_ore, 1),
                new ItemStack(Blocks.redstone_ore, 1));
-       OrEOreManager.addRecipe(((ItemFracturedOre)(LudicrousItems.fractured_ore)).getStackForOre(new ItemStack(Blocks.iron_ore), 1), 8, new ItemStack(Blocks.iron_ore));
+
+       OrEOreManager.addRecipe(((ItemFracturedOre) (LudicrousItems.fractured_ore)).getStackForOre(new ItemStack(Blocks.iron_ore), 8), 1, new ItemStack(Blocks.iron_ore));
    }
 }

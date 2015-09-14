@@ -28,7 +28,7 @@ public class blockOrEOre extends BlockContainer {
         setResistance(2000.0F);
         setBlockName("ore_ore");
         setHarvestLevel("pickaxe", 3);
-        setCreativeTab(Avaritia.tab);
+        setCreativeTab(OrEOreMod.tab);
     }
 
     @SideOnly(Side.CLIENT)
