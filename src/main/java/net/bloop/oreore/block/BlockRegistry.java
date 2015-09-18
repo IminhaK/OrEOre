@@ -1,7 +1,7 @@
-package net.bloop.unnamed.block;
+package net.bloop.oreore.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.bloop.unnamed.tile.TileEntityOrEOre;
+import net.bloop.oreore.tile.TileEntityOrEOre;
 import net.minecraft.block.Block;
 
 /**

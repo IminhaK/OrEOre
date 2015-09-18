@@ -1,10 +1,9 @@
-package net.bloop.unnamed.block;
+package net.bloop.oreore.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import fox.spiteful.avaritia.Avaritia;
-import net.bloop.unnamed.OrEOreMod;
-import net.bloop.unnamed.tile.TileEntityOrEOre;
+import net.bloop.oreore.OrEOreMod;
+import net.bloop.oreore.tile.TileEntityOrEOre;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

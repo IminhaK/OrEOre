@@ -1,6 +1,6 @@
-package net.bloop.unnamed.tile;
+package net.bloop.oreore.tile;
 
-import net.bloop.unnamed.craft.OrEOreManager;
+import net.bloop.oreore.craft.OrEOreManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;

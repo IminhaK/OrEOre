@@ -1,4 +1,4 @@
-package net.bloop.unnamed.tile;
+package net.bloop.oreore.tile;
 
 /**
  * Created by Bloop on 9/12/2015.

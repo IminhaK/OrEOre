@@ -1,4 +1,4 @@
-package net.bloop.unnamed.craft;
+package net.bloop.oreore.craft;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;

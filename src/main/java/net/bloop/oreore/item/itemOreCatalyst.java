@@ -1,6 +1,6 @@
-package net.bloop.unnamed.item;
+package net.bloop.oreore.item;
 
-import net.bloop.unnamed.OrEOreMod;
+import net.bloop.oreore.OrEOreMod;
 import net.minecraft.item.Item;
 
 /**

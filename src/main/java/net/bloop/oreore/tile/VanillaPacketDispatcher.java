@@ -4,7 +4,7 @@
  * Get the original here: https://github.com/Vazkii/Botania/blob/master/src/main/java/vazkii/botania/api/internal/VanillaPacketDispatcher.java
  */
 
-package net.bloop.unnamed.tile;
+package net.bloop.oreore.tile;
 
 import java.util.List;
 import net.minecraft.entity.player.EntityPlayerMP;

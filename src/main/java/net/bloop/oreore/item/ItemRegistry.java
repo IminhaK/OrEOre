@@ -1,7 +1,6 @@
-package net.bloop.unnamed.item;
+package net.bloop.oreore.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.item.Item;
 
 /**
  * Created by Bloop on 9/13/2015.

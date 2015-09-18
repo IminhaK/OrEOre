@@ -1,14 +1,12 @@
-package net.bloop.unnamed.gui;
+package net.bloop.oreore.gui;
 
-import net.bloop.unnamed.craft.OrEOreManager;
-import net.bloop.unnamed.tile.TileEntityOrEOre;
+import net.bloop.oreore.craft.OrEOreManager;
+import net.bloop.oreore.tile.TileEntityOrEOre;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import java.util.Iterator;
 
 /**
  * Created by Bloop on 9/12/2015.

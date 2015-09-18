@@ -1,9 +1,8 @@
-package net.bloop.unnamed.gui;
+package net.bloop.oreore.gui;
 
 import cpw.mods.fml.common.network.IGuiHandler;
-import net.bloop.unnamed.tile.TileEntityOrEOre;
+import net.bloop.oreore.tile.TileEntityOrEOre;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 /**

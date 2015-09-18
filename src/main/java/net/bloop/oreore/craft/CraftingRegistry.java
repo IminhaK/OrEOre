@@ -1,12 +1,11 @@
-package net.bloop.unnamed.craft;
+package net.bloop.oreore.craft;
 
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
-import fox.spiteful.avaritia.crafting.CompressorManager;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.items.ItemFracturedOre;
 import fox.spiteful.avaritia.items.LudicrousItems;
-import net.bloop.unnamed.block.BlockRegistry;
-import net.bloop.unnamed.item.ItemRegistry;
+import net.bloop.oreore.block.BlockRegistry;
+import net.bloop.oreore.item.ItemRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapelessOreRecipe;

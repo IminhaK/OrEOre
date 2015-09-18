@@ -1,4 +1,4 @@
-package net.bloop.unnamed;
+package net.bloop.oreore;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -6,10 +6,10 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import net.bloop.unnamed.block.BlockRegistry;
-import net.bloop.unnamed.craft.CraftingRegistry;
-import net.bloop.unnamed.gui.GuiHandler;
-import net.bloop.unnamed.item.ItemRegistry;
+import net.bloop.oreore.block.BlockRegistry;
+import net.bloop.oreore.craft.CraftingRegistry;
+import net.bloop.oreore.gui.GuiHandler;
+import net.bloop.oreore.item.ItemRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
